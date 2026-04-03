@@ -230,6 +230,72 @@
             font-size: 0.9em;
         }
 
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .compare-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .compare-card.hot { border-top: 4px solid #e53e3e; }
+        .compare-card.cool { border-top: 4px solid #38a169; }
+        .compare-card h3 { font-size: 1.4em; margin-bottom: 15px; color: #1a365d; }
+        .compare-card .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+        .tag-hot { background: #fff5f5; color: #c53030; }
+        .tag-cool { background: #f0fff4; color: #276749; }
+        .tag-neutral { background: #ebf8ff; color: #2b6cb0; }
+        .compare-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+        .compare-item:last-child { border-bottom: none; }
+        .compare-item .label { color: #718096; font-weight: 500; }
+        .compare-item .value { font-weight: 600; color: #2d3748; text-align: right; }
+        .verdict-box {
+            background: linear-gradient(135deg, #ebf8ff, #e9d8fd);
+            border-radius: 16px;
+            padding: 25px 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        .verdict-box h3 { color: #553c9a; margin-bottom: 10px; }
+        .verdict-box p { color: #4a5568; }
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            margin: 25px 0;
+        }
+        .compare-table th {
+            padding: 14px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .compare-table th:first-child { background: #f7fafc; color: #4a5568; }
+        .compare-table th:nth-child(2) { background: #fff5f5; color: #c53030; }
+        .compare-table th:nth-child(3) { background: #f0fff4; color: #276749; }
+        .compare-table td { padding: 12px 15px; border-bottom: 1px solid #edf2f7; }
+        .compare-table tr:last-child td { border-bottom: none; }
+        .star { color: #ecc94b; }
+
         @media (max-width: 600px) {
             .hero h1 { font-size: 1.8em; }
             .nav-tab { padding: 12px 20px; font-size: 0.95em; }
@@ -237,6 +303,7 @@
             .day-card { padding: 18px; }
             .day-card::before { left: -23px; width: 10px; height: 10px; }
             .timeline::before { left: 10px; }
+            .compare-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -253,6 +320,7 @@
         <button class="nav-tab active" onclick="showTrip('overview')">📊 总览</button>
         <button class="nav-tab" onclick="showTrip('banff')">🏔️ 班夫 4天</button>
         <button class="nav-tab" onclick="showTrip('china')">🇨🇳 中国 14天</button>
+        <button class="nav-tab" onclick="showTrip('compare')">⚖️ 目的地对比</button>
     </div>
 
     <!-- ===== OVERVIEW ===== -->
@@ -488,6 +556,151 @@
             </ul>
         </div>
     </div>
+    <!-- ===== COMPARE ===== -->
+    <div id="compare" class="trip-section">
+        <div class="trip-header">
+            <h2>⚖️ 9月初目的地对比</h2>
+            <div class="trip-meta">
+                <div class="meta-item"><span class="icon">📅</span> 9月1–7日 · 4天</div>
+                <div class="meta-item"><span class="icon">🤔</span> 重庆+成都 vs 云南大理</div>
+            </div>
+        </div>
+
+        <!-- Weather & Climate -->
+        <div class="compare-grid">
+            <div class="compare-card hot">
+                <h3>🌶️ 重庆 + 成都</h3>
+                <span class="tag tag-hot">🥵 闷热</span>
+                <span class="tag tag-neutral">🌧️ 阵雨频繁</span>
+                <span class="tag tag-neutral">🍲 美食天堂</span>
+                <div style="margin-top:15px">
+                    <div class="compare-item"><span class="label">气温</span><span class="value">28–35°C</span></div>
+                    <div class="compare-item"><span class="label">体感</span><span class="value">湿热，户外易出汗</span></div>
+                    <div class="compare-item"><span class="label">降雨</span><span class="value">雨季尾声，几乎每天阵雨</span></div>
+                    <div class="compare-item"><span class="label">紫外线</span><span class="value">中等（多云多雾）</span></div>
+                    <div class="compare-item"><span class="label">9月人流</span><span class="value">暑假刚结束，人流回落</span></div>
+                </div>
+            </div>
+            <div class="compare-card cool">
+                <h3>🌸 云南大理</h3>
+                <span class="tag tag-cool">😊 凉爽宜人</span>
+                <span class="tag tag-neutral">🌤️ 偶有阵雨</span>
+                <span class="tag tag-neutral">📸 出片圣地</span>
+                <div style="margin-top:15px">
+                    <div class="compare-item"><span class="label">气温</span><span class="value">18–26°C</span></div>
+                    <div class="compare-item"><span class="label">体感</span><span class="value">春天般舒适，早晚需薄外套</span></div>
+                    <div class="compare-item"><span class="label">降雨</span><span class="value">雨季尾声，一般傍晚短暂</span></div>
+                    <div class="compare-item"><span class="label">紫外线</span><span class="value">⚠️ 强（高原，必须防晒）</span></div>
+                    <div class="compare-item"><span class="label">9月人流</span><span class="value">暑假结束，游客大减</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Experience Comparison Table -->
+        <table class="compare-table">
+            <thead>
+                <tr>
+                    <th>🎯 旅游体验</th>
+                    <th>🌶️ 重庆 + 成都</th>
+                    <th>🌸 云南大理</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>美食</strong></td>
+                    <td><span class="star">★★★★★</span> 火锅、串串、小面、兔头</td>
+                    <td><span class="star">★★★</span> 饵丝、乳扇、烤鱼</td>
+                </tr>
+                <tr>
+                    <td><strong>景观类型</strong></td>
+                    <td>城市景观（洪崖洞、熊猫、古镇）</td>
+                    <td>自然风光（洱海、苍山、古城）</td>
+                </tr>
+                <tr>
+                    <td><strong>旅行节奏</strong></td>
+                    <td>快节奏、打卡型，2城切换</td>
+                    <td>慢节奏、放松型，适合发呆</td>
+                </tr>
+                <tr>
+                    <td><strong>交通便利</strong></td>
+                    <td><span class="star">★★★★★</span> 地铁发达，高铁1.5h互通</td>
+                    <td><span class="star">★★★</span> 需飞昆明再转动车2h</td>
+                </tr>
+                <tr>
+                    <td><strong>住宿费</strong></td>
+                    <td>¥150–250/晚</td>
+                    <td>¥100–200（洱海边¥300+）</td>
+                </tr>
+                <tr>
+                    <td><strong>拍照出片</strong></td>
+                    <td>洪崖洞夜景、李子坝轻轨</td>
+                    <td>洱海、苍山、古城，随手大片</td>
+                </tr>
+                <tr>
+                    <td><strong>适合谁</strong></td>
+                    <td>🍜 吃货、城市探索者</td>
+                    <td>🎨 文艺青年、自然爱好者</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Cost Comparison -->
+        <div class="budget-section">
+            <h3>💰 费用对比（从北京出发，4天）</h3>
+            <table class="budget-table">
+                <thead>
+                    <tr><th>费用项</th><th>🌶️ 重庆+成都</th><th>🌸 大理</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>✈️ 机票（北京往返）</td><td>¥900 – ¥1,400</td><td>¥1,100 – ¥1,800</td></tr>
+                    <tr><td>🚄 城际交通</td><td>重庆→成都 ¥120</td><td>昆明→大理 ¥150</td></tr>
+                    <tr><td>🏨 住宿 3晚</td><td>¥450 – ¥750</td><td>¥300 – ¥600</td></tr>
+                    <tr><td>🍜 餐饮 4天</td><td>¥400 – ¥600</td><td>¥300 – ¥500</td></tr>
+                    <tr><td>🎫 门票/活动</td><td>¥100 – ¥200</td><td>¥150 – ¥300</td></tr>
+                    <tr class="total-row"><td>总计</td><td>¥1,970 – ¥3,070</td><td>¥2,000 – ¥3,400</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Verdict -->
+        <div class="verdict-box">
+            <h3>🏆 综合推荐</h3>
+            <p style="font-size:1.1em; margin-bottom:15px">
+                结合已有行程（青岛→重庆→成都→北京），<strong>重庆+成都交通更顺、衔接更好、美食更强</strong>
+            </p>
+            <div class="compare-grid" style="text-align:left; margin-top:20px">
+                <div style="background:white; padding:20px; border-radius:12px;">
+                    <strong>✅ 选重庆+成都，如果：</strong>
+                    <ul style="margin-top:8px; padding-left:18px; color:#4a5568">
+                        <li>是吃货，火锅串串不可错过</li>
+                        <li>喜欢城市探索和夜生活</li>
+                        <li>不想折腾太多交通</li>
+                        <li>与青岛段衔接更顺畅</li>
+                    </ul>
+                </div>
+                <div style="background:white; padding:20px; border-radius:12px;">
+                    <strong>✅ 选大理，如果：</strong>
+                    <ul style="margin-top:8px; padding-left:18px; color:#4a5568">
+                        <li>想逃离热气，享受凉爽</li>
+                        <li>喜欢自然风光和慢节奏</li>
+                        <li>想拍美照发朋友圈</li>
+                        <li>不怕多飞一程</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips-section" style="margin-top:25px">
+            <h3>💡 9月初小贴士</h3>
+            <ul>
+                <li>9月初暑假人流已退，两个目的地体验都比7–8月好</li>
+                <li>重庆虽热但比盛夏好很多，室内有空调不用担心</li>
+                <li>大理紫外线强，<strong>SPF50防晒霜+墨镜+帽子</strong>必备</li>
+                <li>大理更适合单独安排4–5天专程去，3天略赶</li>
+            </ul>
+        </div>
+    </div>
+
 </div>
 
 <footer>
