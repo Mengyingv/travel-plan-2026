@@ -236,6 +236,35 @@
             gap: 25px;
             margin: 30px 0;
         }
+        .compare-grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .compare-card.blue { border-top: 4px solid #3182ce; }
+        .compare-card.purple { border-top: 4px solid #805ad5; }
+        .tag-purple { background: #faf5ff; color: #6b46c1; }
+        .compare-table-3 {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            margin: 25px 0;
+        }
+        .compare-table-3 th {
+            padding: 14px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .compare-table-3 th:first-child { background: #f7fafc; color: #4a5568; }
+        .compare-table-3 th:nth-child(2) { background: #ebf8ff; color: #2b6cb0; }
+        .compare-table-3 th:nth-child(3) { background: #fff5f5; color: #c53030; }
+        .compare-table-3 th:nth-child(4) { background: #faf5ff; color: #6b46c1; }
+        .compare-table-3 td { padding: 12px 15px; border-bottom: 1px solid #edf2f7; font-size: 0.95em; }
+        .compare-table-3 tr:last-child td { border-bottom: none; }
         .compare-card {
             background: white;
             border-radius: 16px;
@@ -304,6 +333,7 @@
             .day-card::before { left: -23px; width: 10px; height: 10px; }
             .timeline::before { left: 10px; }
             .compare-grid { grid-template-columns: 1fr; }
+            .compare-grid-3 { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -320,7 +350,8 @@
         <button class="nav-tab active" onclick="showTrip('overview')">📊 总览</button>
         <button class="nav-tab" onclick="showTrip('banff')">🏔️ 班夫 4天</button>
         <button class="nav-tab" onclick="showTrip('china')">🇨🇳 中国 14天</button>
-        <button class="nav-tab" onclick="showTrip('compare')">⚖️ 目的地对比</button>
+        <button class="nav-tab" onclick="showTrip('compare')">⚖️ 中国目的地对比</button>
+        <button class="nav-tab" onclick="showTrip('july')">🗓️ 7月行程对比</button>
     </div>
 
     <!-- ===== OVERVIEW ===== -->
@@ -698,6 +729,181 @@
                 <li>大理紫外线强，<strong>SPF50防晒霜+墨镜+帽子</strong>必备</li>
                 <li>大理更适合单独安排4–5天专程去，3天略赶</li>
             </ul>
+        </div>
+    </div>
+
+    <!-- ===== JULY TRIP COMPARISON ===== -->
+    <div id="july" class="trip-section">
+        <div class="trip-header">
+            <h2>🗓️ 7月中旬 4天行程对比</h2>
+            <div class="trip-meta">
+                <div class="meta-item"><span class="icon">📅</span> 7月17日前后 · 4天</div>
+                <div class="meta-item"><span class="icon">🛫</span> 从西雅图出发</div>
+            </div>
+        </div>
+
+        <!-- Overview Cards -->
+        <div class="compare-grid-3">
+            <div class="compare-card blue">
+                <h3>🏔️ 班夫</h3>
+                <span class="tag tag-cool">☀️ 15–25°C 完美</span>
+                <span class="tag tag-neutral">2.5h 直飞</span>
+                <div style="margin-top:15px">
+                    <div class="compare-item"><span class="label">飞行</span><span class="value">SEA→YYC 2.5h</span></div>
+                    <div class="compare-item"><span class="label">时差</span><span class="value">同时区</span></div>
+                    <div class="compare-item"><span class="label">签证</span><span class="value">需加拿大签证</span></div>
+                    <div class="compare-item"><span class="label">语言</span><span class="value">英语</span></div>
+                    <div class="compare-item"><span class="label">7月亮点</span><span class="value">🌿 野花盛开最佳季</span></div>
+                </div>
+            </div>
+            <div class="compare-card hot">
+                <h3>🗽 纽约</h3>
+                <span class="tag tag-hot">🥵 28–33°C 闷热</span>
+                <span class="tag tag-neutral">5.5h 直飞</span>
+                <div style="margin-top:15px">
+                    <div class="compare-item"><span class="label">飞行</span><span class="value">SEA→JFK 5.5h</span></div>
+                    <div class="compare-item"><span class="label">时差</span><span class="value">+3小时</span></div>
+                    <div class="compare-item"><span class="label">签证</span><span class="value">不需要</span></div>
+                    <div class="compare-item"><span class="label">语言</span><span class="value">英语</span></div>
+                    <div class="compare-item"><span class="label">7月亮点</span><span class="value">🎆 夏季户外活动多</span></div>
+                </div>
+            </div>
+            <div class="compare-card purple">
+                <h3>🏰 魁北克</h3>
+                <span class="tag tag-cool">😊 20–27°C 舒适</span>
+                <span class="tag tag-purple">7–9h 转机</span>
+                <div style="margin-top:15px">
+                    <div class="compare-item"><span class="label">飞行</span><span class="value">SEA→YQB 转机7–9h</span></div>
+                    <div class="compare-item"><span class="label">时差</span><span class="value">+3小时</span></div>
+                    <div class="compare-item"><span class="label">签证</span><span class="value">需加拿大签证</span></div>
+                    <div class="compare-item"><span class="label">语言</span><span class="value">法语为主</span></div>
+                    <div class="compare-item"><span class="label">7月亮点</span><span class="value">🎵 夏季音乐节</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cost Breakdown Table -->
+        <div class="budget-section">
+            <h3>💰 费用详细对比（每人）</h3>
+            <table class="compare-table-3">
+                <thead>
+                    <tr><th>费用项</th><th>🏔️ 班夫</th><th>🗽 纽约</th><th>🏰 魁北克</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>✈️ 机票</strong></td>
+                        <td>$250–400<br><small style="color:#718096">Alaska/WestJet 直飞</small></td>
+                        <td>$300–500<br><small style="color:#718096">Delta/Alaska 直飞</small></td>
+                        <td>$450–700<br><small style="color:#718096">需转机1次</small></td>
+                    </tr>
+                    <tr>
+                        <td><strong>🏨 住宿 3晚</strong></td>
+                        <td>$300–450<br><small style="color:#718096">Canmore motel/Airbnb</small></td>
+                        <td>$450–750<br><small style="color:#718096">Queens/Brooklyn</small></td>
+                        <td>$300–480<br><small style="color:#718096">老城B&B/Airbnb</small></td>
+                    </tr>
+                    <tr>
+                        <td><strong>🚗 交通</strong></td>
+                        <td>$250–350<br><small style="color:#718096">租车+油费+停车</small></td>
+                        <td>$100–180<br><small style="color:#718096">地铁+机场交通</small></td>
+                        <td>$220–320<br><small style="color:#718096">租车+油费+停车</small></td>
+                    </tr>
+                    <tr>
+                        <td><strong>🍔 餐饮 4天</strong></td>
+                        <td>$150–250</td>
+                        <td>$200–350</td>
+                        <td>$150–250</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🎫 门票/活动</strong></td>
+                        <td>$30–50<br><small style="color:#718096">国家公园门票</small></td>
+                        <td>$100–200<br><small style="color:#718096">自由女神/大都会等</small></td>
+                        <td>$50–100<br><small style="color:#718096">古城/瀑布</small></td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>💵 总计/人</td>
+                        <td><strong>$980–1,500</strong></td>
+                        <td><strong>$1,150–1,980</strong></td>
+                        <td><strong>$1,170–1,850</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Experience Comparison -->
+        <table class="compare-table-3">
+            <thead>
+                <tr><th>🎯 体验对比</th><th>🏔️ 班夫</th><th>🗽 纽约</th><th>🏰 魁北克</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>核心体验</strong></td>
+                    <td>壮丽自然风光、湖泊雪山</td>
+                    <td>文化艺术、购物、多元美食</td>
+                    <td>欧洲风情、法式文化、历史古城</td>
+                </tr>
+                <tr>
+                    <td><strong>4天行程</strong></td>
+                    <td>Lake Louise → 冰原大道 → Moraine Lake → Johnston Canyon</td>
+                    <td>自由女神 → 中央公园 → 大都会 → 布鲁克林大桥</td>
+                    <td>老城城墙 → 皇家广场 → Montmorency瀑布 → 奥尔良岛</td>
+                </tr>
+                <tr>
+                    <td><strong>美食</strong></td>
+                    <td><span class="star">★★★</span></td>
+                    <td><span class="star">★★★★★</span></td>
+                    <td><span class="star">★★★★</span> 法式料理</td>
+                </tr>
+                <tr>
+                    <td><strong>拍照出片</strong></td>
+                    <td><span class="star">★★★★★</span></td>
+                    <td><span class="star">★★★★</span></td>
+                    <td><span class="star">★★★★★</span></td>
+                </tr>
+                <tr>
+                    <td><strong>适合</strong></td>
+                    <td>🥾 户外/自然爱好者</td>
+                    <td>🛍️ 城市/购物/文化</td>
+                    <td>🎨 文艺/浪漫/历史</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Verdict -->
+        <div class="verdict-box">
+            <h3>🏆 综合推荐：班夫</h3>
+            <p style="font-size:1.1em; margin-bottom:15px">
+                7月中旬是班夫一年中最好的时候——<strong>野花绽放、湖水碧蓝、气温完美</strong>。从西雅图飞最近最便宜，4天刚好走完经典路线。
+            </p>
+            <div class="compare-grid-3" style="text-align:left; margin-top:20px">
+                <div style="background:white; padding:20px; border-radius:12px;">
+                    <strong>🏔️ 选班夫</strong>
+                    <ul style="margin-top:8px; padding-left:18px; color:#4a5568; font-size:0.95em">
+                        <li>最佳性价比</li>
+                        <li>天气最完美</li>
+                        <li>飞行最短</li>
+                        <li>与9月中国行互补</li>
+                    </ul>
+                </div>
+                <div style="background:white; padding:20px; border-radius:12px;">
+                    <strong>🗽 选纽约</strong>
+                    <ul style="margin-top:8px; padding-left:18px; color:#4a5568; font-size:0.95em">
+                        <li>多元文化体验</li>
+                        <li>购物美食天堂</li>
+                        <li>不需护照签证</li>
+                        <li>但最贵最热</li>
+                    </ul>
+                </div>
+                <div style="background:white; padding:20px; border-radius:12px;">
+                    <strong>🏰 选魁北克</strong>
+                    <ul style="margin-top:8px; padding-left:18px; color:#4a5568; font-size:0.95em">
+                        <li>不出北美的欧洲感</li>
+                        <li>天气舒适</li>
+                        <li>夏季音乐节</li>
+                        <li>但飞行最久</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
