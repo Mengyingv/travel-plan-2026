@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 夏季旅行计划 | 西雅图出发</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f0f4f8;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+        .hero {
+            background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 50%, #3182ce 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 20px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '✈️';
+            font-size: 120px;
+            position: absolute;
+            top: 20px;
+            right: 10%;
+            opacity: 0.15;
+        }
+        .hero h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .hero p { font-size: 1.2em; opacity: 0.9; }
+        .hero .subtitle { margin-top: 15px; font-size: 1em; opacity: 0.7; }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: -25px;
+            position: relative;
+            z-index: 10;
+            flex-wrap: wrap;
+        }
+        .nav-tab {
+            background: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            color: #4a5568;
+        }
+        .nav-tab:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+        .nav-tab.active { background: #3182ce; color: white; }
+
+        .trip-section { display: none; padding: 40px 0; }
+        .trip-section.active { display: block; }
+
+        .trip-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .trip-header h2 { font-size: 2em; color: #1a365d; }
+        .trip-header .trip-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1em;
+            color: #718096;
+        }
+        .meta-item .icon { font-size: 1.3em; }
+
+        .flight-route {
+            background: linear-gradient(135deg, #ebf8ff, #bee3f8);
+            border-radius: 16px;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .flight-route h3 { color: #2b6cb0; margin-bottom: 10px; }
+        .route-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            font-size: 1.1em;
+            font-weight: 600;
+            flex-wrap: wrap;
+        }
+        .route-city {
+            background: white;
+            padding: 8px 18px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .route-arrow { color: #3182ce; font-size: 1.4em; }
+
+        .timeline { position: relative; padding-left: 40px; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #3182ce, #63b3ed, #90cdf4);
+            border-radius: 3px;
+        }
+        .day-card {
+            position: relative;
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .day-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .day-card::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 30px;
+            width: 14px;
+            height: 14px;
+            background: #3182ce;
+            border: 3px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px #bee3f8;
+        }
+        .day-label {
+            display: inline-block;
+            background: #ebf8ff;
+            color: #2b6cb0;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+        .day-card h4 { font-size: 1.2em; color: #1a365d; margin-bottom: 8px; }
+        .day-card .activities { color: #4a5568; margin-bottom: 12px; }
+        .day-card .transport {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #f7fafc;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            color: #718096;
+            margin-right: 8px;
+            margin-top: 4px;
+        }
+
+        .budget-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .budget-section h3 {
+            font-size: 1.5em;
+            color: #1a365d;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .budget-table { width: 100%; border-collapse: collapse; }
+        .budget-table th {
+            background: #ebf8ff;
+            color: #2b6cb0;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .budget-table td { padding: 12px 15px; border-bottom: 1px solid #e2e8f0; }
+        .budget-table tr:last-child td { border-bottom: none; }
+        .budget-table .total-row { background: #f0fff4; font-weight: 700; color: #276749; }
+        .budget-table .total-row td { font-size: 1.1em; }
+
+        .tips-section {
+            background: linear-gradient(135deg, #fffff0, #fefcbf);
+            border-radius: 16px;
+            padding: 25px 30px;
+            margin-top: 30px;
+            border-left: 4px solid #ecc94b;
+        }
+        .tips-section h3 { color: #975a16; margin-bottom: 12px; }
+        .tips-section ul { padding-left: 20px; color: #744210; }
+        .tips-section li { margin-bottom: 6px; }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .summary-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .summary-card .card-icon { font-size: 2.5em; margin-bottom: 10px; }
+        .summary-card h3 { color: #1a365d; margin-bottom: 5px; }
+        .summary-card .card-value { font-size: 1.8em; font-weight: 700; color: #3182ce; }
+        .summary-card .card-sub { color: #718096; font-size: 0.9em; margin-top: 5px; }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #a0aec0;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.8em; }
+            .nav-tab { padding: 12px 20px; font-size: 0.95em; }
+            .timeline { padding-left: 30px; }
+            .day-card { padding: 18px; }
+            .day-card::before { left: -23px; width: 10px; height: 10px; }
+            .timeline::before { left: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>🌏 2026 夏季旅行计划</h1>
+    <p>从西雅图出发 · 6月 – 9月</p>
+    <div class="subtitle">两段旅程 · 班夫 4天 + 中国 14天</div>
+</div>
+
+<div class="container">
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTrip('overview')">📊 总览</button>
+        <button class="nav-tab" onclick="showTrip('banff')">🏔️ 班夫 4天</button>
+        <button class="nav-tab" onclick="showTrip('china')">🇨🇳 中国 14天</button>
+    </div>
+
+    <!-- ===== OVERVIEW ===== -->
+    <div id="overview" class="trip-section active">
+        <div class="summary-cards">
+            <div class="summary-card">
+                <div class="card-icon">✈️</div>
+                <h3>总行程</h3>
+                <div class="card-value">18天</div>
+                <div class="card-sub">班夫4天 + 中国14天</div>
+            </div>
+            <div class="summary-card">
+                <div class="card-icon">💰</div>
+                <h3>预估总费用</h3>
+                <div class="card-value">$1,635 – $2,430</div>
+                <div class="card-sub">每人（北京段自理）</div>
+            </div>
+            <div class="summary-card">
+                <div class="card-icon">🗓️</div>
+                <h3>推荐时间</h3>
+                <div class="card-value">6月 / 9月</div>
+                <div class="card-sub">避开暑假高峰省机票</div>
+            </div>
+        </div>
+
+        <div class="budget-section">
+            <h3>💵 总预算一览</h3>
+            <table class="budget-table">
+                <thead>
+                    <tr><th>行程</th><th>天数</th><th>预估费用/人</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>🏔️ 班夫国家公园</td><td>4天</td><td>$650 – $950</td></tr>
+                    <tr><td>🇨🇳 中国（北京段自理 + 青岛/重庆/成都）</td><td>14天</td><td>$985 – $1,480</td></tr>
+                    <tr class="total-row"><td>合计</td><td>18天</td><td>$1,635 – $2,430</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== BANFF ===== -->
+    <div id="banff" class="trip-section">
+        <div class="trip-header">
+            <h2>🏔️ 班夫国家公园</h2>
+            <div class="trip-meta">
+                <div class="meta-item"><span class="icon">📅</span> 4天</div>
+                <div class="meta-item"><span class="icon">🌡️</span> 15–25°C</div>
+                <div class="meta-item"><span class="icon">💰</span> $650–950/人</div>
+                <div class="meta-item"><span class="icon">📍</span> 推荐7月中–8月</div>
+            </div>
+        </div>
+
+        <div class="flight-route">
+            <h3>✈️ 交通路线</h3>
+            <div class="route-visual">
+                <span class="route-city">🛫 西雅图 SEA</span>
+                <span class="route-arrow">→</span>
+                <span class="route-city">✈️ 卡尔加里 YYC</span>
+                <span class="route-arrow">→</span>
+                <span class="route-city">🚗 自驾至 Canmore/班夫</span>
+            </div>
+        </div>
+
+        <div class="timeline">
+            <div class="day-card">
+                <span class="day-label">Day 1</span>
+                <h4>卡尔加里 → Canmore</h4>
+                <div class="activities">机场取车，驱车前往 Canmore 小镇（约1.5h）。下午漫步 Canmore 主街，欣赏落基山脉全景，超市采购补给。</div>
+                <span class="transport">🚗 租车自驾</span>
+                <span class="transport">🏨 Canmore 住宿</span>
+            </div>
+            <div class="day-card">
+                <span class="day-label">Day 2</span>
+                <h4>Lake Louise + Moraine Lake</h4>
+                <div class="activities">⏰ 早起出发（7点前到）避开人流。上午游览 Lake Louise 湖畔步道，下午前往 Moraine Lake（绝美蓝绿色湖水）。湖边野餐。</div>
+                <span class="transport">🚗 自驾约40min</span>
+                <span class="transport">🥾 徒步</span>
+            </div>
+            <div class="day-card">
+                <span class="day-label">Day 3</span>
+                <h4>冰原大道 Icefields Parkway</h4>
+                <div class="activities">世界最美公路之一！沿途停靠 Peyto Lake（标志性蓝色湖泊）、Bow Lake、Crowfoot Glacier，拍照打卡。全程约230公里，慢慢开一天正好。</div>
+                <span class="transport">🚗 自驾一日</span>
+                <span class="transport">📸 沿途多个观景台</span>
+            </div>
+            <div class="day-card">
+                <span class="day-label">Day 4</span>
+                <h4>Johnston Canyon → 返程</h4>
+                <div class="activities">上午徒步 Johnston Canyon（下瀑布30min，上瀑布1h），轻松好走。中午逛班夫镇，Banff Avenue 购物吃饭。下午返回卡尔加里还车，飞回西雅图。</div>
+                <span class="transport">🥾 峡谷步道</span>
+                <span class="transport">🛫 YYC → SEA</span>
+            </div>
+        </div>
+
+        <div class="budget-section">
+            <h3>💵 班夫费用明细</h3>
+            <table class="budget-table">
+                <thead><tr><th>项目</th><th>预估费用/人</th></tr></thead>
+                <tbody>
+                    <tr><td>✈️ 机票 SEA ↔ YYC 往返</td><td>$200 – $350</td></tr>
+                    <tr><td>🚗 租车 4天（可分摊）</td><td>$150 – $200</td></tr>
+                    <tr><td>🏨 Canmore 住宿 × 3晚</td><td>$240 – $360</td></tr>
+                    <tr><td>🎫 国家公园门票</td><td>~$30</td></tr>
+                    <tr><td>🍔 餐饮 + 杂费</td><td>$50 – $100</td></tr>
+                    <tr class="total-row"><td>总计</td><td>$650 – $950</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tips-section">
+            <h3>💡 省钱 Tips</h3>
+            <ul>
+                <li>住 <strong>Canmore</strong> 而非班夫镇内，便宜 30%+</li>
+                <li>自带食物野餐，超市采购比餐厅省很多</li>
+                <li>避开7月1日（加拿大国庆）和8月长周末</li>
+                <li>周二/三出发机票通常最便宜</li>
+                <li>用 Google Flights 设价格提醒</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ===== CHINA ===== -->
+    <div id="china" class="trip-section">
+        <div class="trip-header">
+            <h2>🇨🇳 中国 14 天</h2>
+            <div class="trip-meta">
+                <div class="meta-item"><span class="icon">📅</span> 14天</div>
+                <div class="meta-item"><span class="icon">💰</span> $985–1,480/人</div>
+                <div class="meta-item"><span class="icon">📍</span> 北京→青岛→重庆→成都→北京</div>
+                <div class="meta-item"><span class="icon">🛫</span> 首尔转机</div>
+            </div>
+        </div>
+
+        <div class="flight-route">
+            <h3>✈️ 国际航线</h3>
+            <div class="route-visual">
+                <span class="route-city">🛫 西雅图 SEA</span>
+                <span class="route-arrow">→</span>
+                <span class="route-city">🔄 首尔 ICN</span>
+                <span class="route-arrow">→</span>
+                <span class="route-city">🛬 北京 PEK</span>
+            </div>
+            <p style="margin-top:10px; color:#4a5568; font-size:0.9em;">推荐大韩航空/韩亚航空 | 回程可留长转机时间逛仁川免税店</p>
+        </div>
+
+        <div class="timeline">
+            <div class="day-card" style="border-left: 4px solid #e53e3e;">
+                <span class="day-label" style="background:#fff5f5; color:#c53030;">Day 1 – 7</span>
+                <h4>🏠 北京（自行安排）</h4>
+                <div class="activities">第一周在北京自由活动，住宿、餐饮、景点自理。</div>
+            </div>
+
+            <div class="day-card">
+                <span class="day-label">Day 8</span>
+                <h4>🍺 北京 → 青岛</h4>
+                <div class="activities">高铁约2.5小时抵达青岛。游览<strong>栈桥</strong>、漫步<strong>八大关</strong>欧式建筑区、<strong>啤酒街</strong>畅饮青岛啤酒、海鲜大排档晚餐。</div>
+                <span class="transport">🚄 高铁 ¥200</span>
+                <span class="transport">🏨 青岛 ¥150–250</span>
+            </div>
+
+            <div class="day-card">
+                <span class="day-label">Day 9</span>
+                <h4>🌶️ 青岛 → 重庆</h4>
+                <div class="activities">上午飞重庆（约3h）。下午/晚上打卡<strong>洪崖洞</strong>夜景（千与千寻同款）、<strong>解放碑</strong>步行街。</div>
+                <span class="transport">✈️ 机票 ¥400–600</span>
+                <span class="transport">🏨 重庆 ¥150–200</span>
+            </div>
+
+            <div class="day-card">
+                <span class="day-label">Day 10</span>
+                <h4>🔥 重庆一日游</h4>
+                <div class="activities"><strong>李子坝轻轨穿楼</strong>（网红打卡）、<strong>磁器口古镇</strong>闲逛、体验正宗<strong>重庆九宫格火锅</strong>🍲。长江索道看两江风光。</div>
+                <span class="transport">🚇 轻轨出行</span>
+                <span class="transport">🏨 重庆 ¥150–200</span>
+            </div>
+
+            <div class="day-card">
+                <span class="day-label">Day 11</span>
+                <h4>🐼 重庆 → 成都</h4>
+                <div class="activities">上午最后逛逛重庆，下午高铁1.5h到成都。傍晚逛<strong>春熙路</strong>+<strong>太古里</strong>，晚餐尝<strong>成都串串香</strong>。</div>
+                <span class="transport">🚄 高铁 ¥120</span>
+                <span class="transport">🏨 成都 ¥150–200</span>
+            </div>
+
+            <div class="day-card">
+                <span class="day-label">Day 12</span>
+                <h4>🐼 成都：熊猫 + 宽窄巷子</h4>
+                <div class="activities">⏰ <strong>早上7点出发！</strong>大熊猫繁育研究基地（早上熊猫最活跃）。下午<strong>宽窄巷子</strong>品茶吃小吃、<strong>人民公园</strong>感受成都慢生活。</div>
+                <span class="transport">🚇 地铁</span>
+                <span class="transport">🏨 成都 ¥150–200</span>
+            </div>
+
+            <div class="day-card">
+                <span class="day-label">Day 13</span>
+                <h4>⛩️ 成都：锦里 + 武侯祠</h4>
+                <div class="activities">上午<strong>武侯祠</strong>（三国文化圣地）+ <strong>锦里古街</strong>。下午<strong>人民公园</strong>喝盖碗茶。傍晚飞回北京（约2.5h）。</div>
+                <span class="transport">✈️ 成都→北京 ¥500–800</span>
+            </div>
+
+            <div class="day-card" style="border-left: 4px solid #38a169;">
+                <span class="day-label" style="background:#f0fff4; color:#276749;">Day 14</span>
+                <h4>🏠 北京 → 首尔 → 西雅图</h4>
+                <div class="activities">从北京出发，经首尔仁川机场转机回西雅图。可选长转机时间（8–12h），免签入境逛明洞/免税店。</div>
+                <span class="transport">✈️ PEK → ICN → SEA</span>
+            </div>
+        </div>
+
+        <div class="budget-section">
+            <h3>💵 中国行程费用明细（Day 8–13）</h3>
+            <table class="budget-table">
+                <thead><tr><th>项目</th><th>预估费用</th></tr></thead>
+                <tbody>
+                    <tr><td>✈️ 国际机票 SEA ↔ PEK（首尔转机）</td><td>$600 – $900</td></tr>
+                    <tr><td>✈️ 国内机票（青岛→重庆 + 成都→北京）</td><td>¥900 – ¥1,400</td></tr>
+                    <tr><td>🚄 高铁（北京→青岛 + 重庆→成都）</td><td>¥320</td></tr>
+                    <tr><td>🏨 住宿（5晚）</td><td>¥750 – ¥1,050</td></tr>
+                    <tr><td>🍜 餐饮（6天）</td><td>¥600 – ¥1,000</td></tr>
+                    <tr><td>🎫 景点门票</td><td>¥200 – ¥400</td></tr>
+                    <tr class="total-row"><td>总计</td><td>≈ $985 – $1,480 / 人</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tips-section">
+            <h3>💡 省钱 Tips</h3>
+            <ul>
+                <li>国内机票用 <strong>携程/去哪儿</strong> 订，比国际平台便宜</li>
+                <li>选 <strong>6月初或9月</strong> 出发，避开暑假机票溢价</li>
+                <li>重庆成都住 <strong>地铁沿线快捷酒店</strong>，¥150–200 很舒适</li>
+                <li>重庆火锅 + 成都苍蝇馆子，人均 ¥30–50 吃得很好</li>
+                <li>青岛啤酒街 <strong>海鲜大排档</strong> 比景区餐厅便宜很多</li>
+                <li>回程首尔转机可留长时间，<strong>免签逛免税店</strong></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>🌍 2026 夏季旅行计划 · 从西雅图出发 · 祝旅途愉快！</p>
+</footer>
+
+<script>
+    function showTrip(tripId) {
+        document.querySelectorAll('.trip-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(tripId).classList.add('active');
+        event.target.classList.add('active');
+        window.scrollTo({ top: 300, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
