@@ -398,39 +398,149 @@
         <div class="trip-header">
             <h2>🏔️ 班夫国家公园</h2>
             <div class="trip-meta">
-                <div class="meta-item"><span class="icon">📅</span> 4天</div>
+                <div class="meta-item"><span class="icon">📅</span> 7/16–7/19 · 4天</div>
                 <div class="meta-item"><span class="icon">🌡️</span> 15–25°C</div>
-                <div class="meta-item"><span class="icon">💰</span> $650–950/人</div>
-                <div class="meta-item"><span class="icon">📍</span> 推荐7月中–8月</div>
+                <div class="meta-item"><span class="icon">💰</span> $1,970–3,340/人</div>
+                <div class="meta-item"><span class="icon">📍</span> 卡尔加里→Canmore→Lake Louise→班夫</div>
             </div>
         </div>
 
         <div class="flight-route">
             <h3>✈️ 交通路线</h3>
             <div class="route-visual">
-                <span class="route-city">🛫 西雅图 SEA</span>
+                <span class="route-city">🛫 SEA 7/16 2PM</span>
                 <span class="route-arrow">→</span>
-                <span class="route-city">✈️ 卡尔加里 YYC</span>
+                <span class="route-city">✈️ YYC 5:30PM</span>
                 <span class="route-arrow">→</span>
-                <span class="route-city">🚗 自驾至 Canmore/班夫</span>
+                <span class="route-city">🚗 Canmore→Lake Louise→班夫</span>
+                <span class="route-arrow">→</span>
+                <span class="route-city">🛬 YYC 7/19 午后</span>
             </div>
         </div>
 
+        <!-- ===== ROUTE MAP ===== -->
+        <div id="route-map" style="height:420px; border-radius:16px; margin:25px 0; box-shadow:0 2px 12px rgba(0,0,0,0.1);"></div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                if (typeof L === 'undefined') return;
+                var rmap = L.map('route-map').setView([51.18, -115.8], 9);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap'
+                }).addTo(rmap);
+
+                var spots = [
+                    { name: '✈️ 卡尔加里 YYC', lat: 51.1215, lng: -114.0076, color: '#e53e3e', type: '机场' },
+                    { name: '🍽️ Charbar', lat: 51.0420, lng: -114.0380, color: '#dd6b20', type: '餐厅' },
+                    { name: '🍽️ Anju', lat: 51.0375, lng: -114.0720, color: '#dd6b20', type: '餐厅' },
+                    { name: '🍽️ 卡村牛羊馆', lat: 51.0445, lng: -114.0630, color: '#dd6b20', type: '餐厅' },
+                    { name: '🍽️ Master Beef Hot Pot', lat: 51.0460, lng: -114.0650, color: '#dd6b20', type: '餐厅' },
+                    { name: '🧁 Yann Haute Patisserie', lat: 51.0390, lng: -114.0700, color: '#d53f8c', type: '甜点' },
+                    { name: '🏨 Canmore 住宿区', lat: 51.0895, lng: -115.3440, color: '#38a169', type: '住宿' },
+                    { name: '🏔️ Fairmont Lake Louise', lat: 51.4168, lng: -116.1773, color: '#3182ce', type: '住宿' },
+                    { name: '📸 Moraine Lake', lat: 51.3217, lng: -116.1860, color: '#805ad5', type: '景点' },
+                    { name: '📸 Bow Lake', lat: 51.6680, lng: -116.4590, color: '#805ad5', type: '景点' },
+                    { name: '📸 Peyto Lake', lat: 51.7250, lng: -116.5090, color: '#805ad5', type: '景点' },
+                    { name: '📸 Johnston Canyon', lat: 51.2455, lng: -115.8380, color: '#805ad5', type: '景点' },
+                    { name: '📸 Vermilion Lakes', lat: 51.1820, lng: -115.6140, color: '#805ad5', type: '景点' },
+                    { name: '📸 Surprise Corner', lat: 51.1650, lng: -115.5510, color: '#805ad5', type: '景点' },
+                    { name: '🦦 Otter Hotel', lat: 51.1784, lng: -115.5708, color: '#dd6b20', type: '住宿' },
+                    { name: '🛶 Hotel Canoe', lat: 51.1762, lng: -115.5722, color: '#38a169', type: '住宿' },
+                    { name: '♨️ Banff Upper Hot Springs', lat: 51.1510, lng: -115.5580, color: '#e53e3e', type: '活动' },
+                    { name: '🏰 Banff Springs', lat: 51.1621, lng: -115.5561, color: '#805ad5', type: '住宿' }
+                ];
+
+                spots.forEach(function(s) {
+                    var icon = L.divIcon({
+                        className: 'custom-marker',
+                        html: '<div style="background:' + s.color + ';color:white;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:600;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,0.3);">' + s.name + '</div>',
+                        iconSize: [140, 28],
+                        iconAnchor: [70, 14]
+                    });
+                    L.marker([s.lat, s.lng], { icon: icon }).addTo(rmap)
+                        .bindPopup('<strong>' + s.name + '</strong><br>' + s.type);
+                });
+
+                // Route line
+                var route = [
+                    [51.1215, -114.0076], // YYC
+                    [51.0895, -115.3440], // Canmore
+                    [51.3217, -116.1860], // Moraine Lake
+                    [51.4168, -116.1773], // Lake Louise
+                    [51.6680, -116.4590], // Bow Lake
+                    [51.7250, -116.5090], // Peyto Lake
+                    [51.4168, -116.1773], // back to LL
+                    [51.2455, -115.8380], // Johnston Canyon
+                    [51.1784, -115.5708], // Banff
+                    [51.1215, -114.0076]  // YYC
+                ];
+                L.polyline(route, { color: '#3182ce', weight: 3, opacity: 0.7, dashArray: '8,8' }).addTo(rmap);
+            });
+        </script>
+
         <div class="timeline">
             <div class="day-card">
-                <span class="day-label">Day 1</span>
-                <h4>卡尔加里 → Canmore</h4>
-                <div class="activities">机场取车，驱车前往 Canmore 小镇（约1.5h）。下午漫步 Canmore 主街，欣赏落基山脉全景，超市采购补给。</div>
-                <span class="transport">🚗 租车自驾</span>
-                <span class="transport">🏨 Canmore 住宿</span>
+                <span class="day-label">Day 1 · 7/16 Thu</span>
+                <h4>✈️ 西雅图 → 卡尔加里 → Canmore</h4>
+                <div class="activities">
+                    <strong>2:00 PM</strong> SEA 出发（Alaska/WestJet 直飞 2.5h）→ <strong>5:30 PM</strong> 抵达 YYC 取车 →
+                    <strong>6:30 PM</strong> 卡尔加里吃晚饭 → <strong>8:00 PM</strong> 开车去 Canmore（1h15min）→ <strong>9:15 PM</strong> 入住酒店
+                </div>
+                <span class="transport">✈️ SEA→YYC 2.5h</span>
+                <span class="transport">🚗 YYC→Canmore 85km/1h15</span>
+                <span class="transport">🏨 Canmore (Lamphouse/Coast)</span>
             </div>
+
+            <!-- Calgary Restaurants -->
+            <div style="margin:-5px 0 20px 40px; background:white; border-radius:16px; padding:25px; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+                <h4 style="color:#1a365d; margin-bottom:15px;">🍽️ 卡尔加里餐厅推荐</h4>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div style="background:#f7fafc; padding:15px; border-radius:10px;">
+                        <div style="font-weight:600;">🥩 Charbar</div>
+                        <div style="font-size:0.85em; color:#718096;">现代阿根廷烤肉 · $$$ · East Village</div>
+                        <div style="font-size:0.82em; color:#4a5568;">牛排极佳，露台河景，适合到达日庆祝</div>
+                    </div>
+                    <div style="background:#f7fafc; padding:15px; border-radius:10px;">
+                        <div style="font-weight:600;">🍗 Anju</div>
+                        <div style="font-size:0.85em; color:#718096;">韩式 Fusion · $$ · 17th Ave</div>
+                        <div style="font-size:0.82em; color:#4a5568;">韩式炸鸡+创意小吃，轻松氛围</div>
+                    </div>
+                    <div style="background:#f7fafc; padding:15px; border-radius:10px;">
+                        <div style="font-weight:600;">🍲 Master Beef Hot Pot</div>
+                        <div style="font-size:0.85em; color:#718096;">火锅 · $$ · 沙茶锅底</div>
+                        <div style="font-size:0.82em; color:#4a5568;">正宗沙茶牛肉火锅，冬天/下雨天首选</div>
+                    </div>
+                    <div style="background:#f7fafc; padding:15px; border-radius:10px;">
+                        <div style="font-weight:600;">🐑 卡村牛羊馆</div>
+                        <div style="font-size:0.85em; color:#718096;">中式 · $$ · 水爆肚</div>
+                        <div style="font-size:0.82em; color:#4a5568;">招牌水爆肚，地道北京味</div>
+                    </div>
+                    <div style="background:#fff5f7; padding:15px; border-radius:10px; grid-column:1/-1;">
+                        <div style="font-weight:600;">🧁 Yann Haute Patisserie <span style="font-size:0.8em; color:#d53f8c;">← 7/19 上午推荐</span></div>
+                        <div style="font-size:0.85em; color:#718096;">法式甜点 · $ · 17th Ave</div>
+                        <div style="font-size:0.82em; color:#4a5568;">卡尔加里最好的马卡龙🧁 + 法式甜点，回程路上必打卡</div>
+                    </div>
+                </div>
+            </div>
+
             <div class="day-card">
-                <span class="day-label">Day 2</span>
-                <h4>Lake Louise + Moraine Lake + 下午茶</h4>
-                <div class="activities">⏰ 早起出发（7点前到）避开人流。上午游览 Lake Louise 湖畔步道。<strong>下午 Fairmont Chateau Lake Louise 下午茶</strong>（Lakeview Lounge，需预约）——坐在巨幅落地窗前，对着翡翠色湖水和 Victoria Glacier 享用精致甜点。傍晚前往 Moraine Lake 看夕阳。</div>
-                <span class="transport">🚗 自驾约40min</span>
-                <span class="transport">🥾 徒步</span>
-                <span class="transport">☕ 下午茶 ~$65 CAD/人</span>
+                <span class="day-label">Day 2 · 7/17 Fri ⭐ 主游览日</span>
+                <h4>Moraine Lake → Lake Louise → 入住 Fairmont</h4>
+                <div class="activities">
+                    <strong>6:45 AM</strong> Canmore 出发 →
+                    <strong>7:30–9:30</strong> 📸 <strong>Moraine Lake</strong>（十峰谷，Rockpile Trail 观景台）→
+                    <strong>10:00</strong> 抵达 Lake Louise，Fairmont 寄存行李 →
+                    <strong>10:30–12:00</strong> 🚶 湖畔步道（2km平路到冰川近景）→
+                    <strong>12:00–1:30</strong> 🍽️ Fairmont Alpine Social 午餐 →
+                    <strong>2:00–3:30</strong> 🛶 <strong>Lake Louise 独木舟</strong>（$95 CAD/h）→
+                    <strong>3:30–5:00</strong> ☕ <strong>Lakeview Lounge 下午茶</strong>（$65 CAD/人，需预约 window seat）→
+                    <strong>6:30–8:30</strong> 🍽️ <strong>Fairview Dining Room 晚餐</strong>（法餐，需预约）→
+                    <strong>8:30–9:30</strong> 🌅 湖畔散步看日落 →
+                    <strong>9:30+</strong> 🌌 观星（无光污染）
+                </div>
+                <span class="transport">🚗 Canmore→Moraine 75km/1h</span>
+                <span class="transport">🏔️ Fairmont Lake Louise</span>
+                <span class="transport">🛶 独木舟 $95</span>
+                <span class="transport">☕ 下午茶 $65</span>
             </div>
 
             <!-- Afternoon Tea Feature -->
@@ -494,44 +604,85 @@
                 }
             </style>
             <div class="day-card">
-                <span class="day-label">Day 3</span>
-                <h4>冰原大道 Icefields Parkway</h4>
-                <div class="activities">世界最美公路之一！沿途停靠 Peyto Lake（标志性蓝色湖泊）、Bow Lake、Crowfoot Glacier，拍照打卡。全程约230公里，慢慢开一天正好。</div>
-                <span class="transport">🚗 自驾一日</span>
-                <span class="transport">📸 沿途多个观景台</span>
+                <span class="day-label">Day 3 · 7/18 Sat</span>
+                <h4>冰原大道北段 → Johnston Canyon → 班夫镇</h4>
+                <div class="activities">
+                    <strong>7:00 AM</strong> 🌅 推开窗看日出湖景！ →
+                    <strong>7:30–8:30</strong> 🍽️ Poppy Brasserie 自助早餐 →
+                    <strong>9:00</strong> Check-out →
+                    <strong>9:45</strong> 📸 <strong>Bow Lake</strong>（路边停车即看，30min）→
+                    <strong>10:30</strong> 📸 <strong>Peyto Lake</strong>（标志性蓝色湖泊，停车走10min到观景台）→
+                    <strong>11:45</strong> 掉头南行 →
+                    <strong>12:45</strong> 抵达班夫镇 →
+                    <strong>1:00–2:00</strong> 🍽️ <strong>The Bison</strong> 或 <strong>Park Distillery</strong> 午餐 →
+                    <strong>2:30–3:30</strong> 🛣️ Bow Valley Parkway（1A公路，常见野生动物）→
+                    <strong>3:30–4:00</strong> 📸 <strong>Johnston Canyon</strong> Lower Falls（30min 轻松往返）→
+                    <strong>4:30</strong> 🏨 入住班夫镇酒店 →
+                    <strong>5:00–6:30</strong> ♨️ <strong>Banff Upper Hot Springs</strong>（$10 CAD，户外温泉看山）→
+                    <strong>7:00–8:30</strong> 🍽️ <strong>The Bison / Block Kitchen</strong> 晚餐 →
+                    <strong>8:30+</strong> 🚶 Banff Ave 散步逛纪念品店
+                </div>
+                <span class="transport">🚗 Lake Louise→Peyto 70km/45min</span>
+                <span class="transport">🚗 Peyto→班夫 120km/1h30</span>
+                <span class="transport">♨️ 温泉 $10 CAD</span>
+                <span class="transport">🏨 班夫镇 (Otter/Canoe)</span>
             </div>
             <div class="day-card">
-                <span class="day-label">Day 4</span>
-                <h4>Johnston Canyon → 返程</h4>
-                <div class="activities">上午徒步 Johnston Canyon（下瀑布30min，上瀑布1h），轻松好走。中午逛班夫镇，Banff Avenue 购物吃饭。下午返回卡尔加里还车，飞回西雅图。</div>
-                <span class="transport">🥾 峡谷步道</span>
-                <span class="transport">🛫 YYC → SEA</span>
+                <span class="day-label">Day 4 · 7/19 Sun</span>
+                <h4>班夫晨景 → 卡尔加里甜点 → 返程</h4>
+                <div class="activities">
+                    <strong>8:00 AM</strong> 起床 →
+                    <strong>8:30</strong> 🍽️ Wild Flour Bakery 早餐 →
+                    <strong>9:30</strong> 📸 <strong>Surprise Corner</strong>（俯瞰 Banff Springs 城堡经典角度）→
+                    <strong>10:00</strong> 📸 <strong>Vermilion Lakes</strong>（三湖+Rundle Mountain 倒影，明信片机位）→
+                    <strong>10:30</strong> 🚗 班夫→卡尔加里（1.5h）→
+                    <strong>12:00</strong> 🧁 <strong>Yann Haute Patisserie</strong>（法式马卡龙+甜点，17th Ave，必打卡！）→
+                    <strong>12:45</strong> 🚗 前往机场还车 →
+                    <strong>1:30 PM+</strong> 🛫 YYC→SEA（到达西雅图当地时间 2PM 左右）
+                </div>
+                <span class="transport">🚗 班夫→YYC 130km/1h30</span>
+                <span class="transport">🧁 Yann Patisserie 马卡龙</span>
+                <span class="transport">🛫 YYC→SEA 2.5h</span>
             </div>
         </div>
 
         <div class="budget-section">
-            <h3>💵 班夫费用明细</h3>
+            <h3>💵 费用明细（7/16–7/19）</h3>
             <table class="budget-table">
                 <thead><tr><th>项目</th><th>预估费用/人</th></tr></thead>
                 <tbody>
-                    <tr><td>✈️ 机票 SEA ↔ YYC 往返</td><td>$200 – $350</td></tr>
-                    <tr><td>🚗 租车 4天（可分摊）</td><td>$150 – $200</td></tr>
-                    <tr><td>🏨 Canmore 住宿 × 3晚</td><td>$240 – $360</td></tr>
-                    <tr><td>🎫 国家公园门票</td><td>~$30</td></tr>
-                    <tr><td>🍔 餐饮 + 杂费</td><td>$50 – $100</td></tr>
-                    <tr class="total-row"><td>总计</td><td>$650 – $950</td></tr>
+                    <tr><td>✈️ 机票 SEA ↔ YYC 往返</td><td>$250 – $400</td></tr>
+                    <tr><td>🚗 租车 4天 + 油费</td><td>$250 – $350</td></tr>
+                    <tr><td>🏨 Canmore 1晚（7/16）</td><td>$150 – $250</td></tr>
+                    <tr><td>🏔️ Fairmont Lake Louise 1晚（7/17）</td><td>$700 – $1,200</td></tr>
+                    <tr><td>🏨 班夫镇 1晚（7/18 Otter/Canoe）</td><td>$250 – $500</td></tr>
+                    <tr><td>🍽️ 餐饮 4天</td><td>$200 – $400</td></tr>
+                    <tr><td>🛶 独木舟 + ☕下午茶 + ♨️温泉</td><td>$170 – $200</td></tr>
+                    <tr><td>🎫 国家公园门票</td><td>~$40</td></tr>
+                    <tr class="total-row"><td>总计</td><td>$1,970 – $3,340</td></tr>
                 </tbody>
             </table>
         </div>
 
         <div class="tips-section">
-            <h3>💡 省钱 Tips</h3>
+            <h3>⚠️ 必须提前预订</h3>
             <ul>
-                <li>住 <strong>Canmore</strong> 而非班夫镇内，便宜 30%+</li>
-                <li>自带食物野餐，超市采购比餐厅省很多</li>
-                <li>避开7月1日（加拿大国庆）和8月长周末</li>
-                <li>周二/三出发机票通常最便宜</li>
-                <li>用 Google Flights 设价格提醒</li>
+                <li><strong>Fairmont Lake Louise</strong> — 提前 3–6 个月（7月湖景房极抢手）</li>
+                <li><strong>Lakeview Lounge 下午茶</strong> — 提前 2–4 周，备注 window seat</li>
+                <li><strong>Fairview Dining Room 晚餐</strong> — 提前 2–4 周</li>
+                <li><strong>Moraine Lake 穿梭巴士</strong> — 关注 Parks Canada 开票时间（7月私家车限行）</li>
+                <li><strong>租车</strong> — 提前 1–2 个月（旺季价格涨）</li>
+            </ul>
+        </div>
+
+        <div class="tips-section" style="margin-top:15px;">
+            <h3>💡 Tips</h3>
+            <ul>
+                <li>AB省比WA快1小时（山地时间 MDT）</li>
+                <li>7/19 回程路上经 17th Ave 去 <strong>Yann Haute Patisserie</strong> 买马卡龙</li>
+                <li>Canmore 超市头天买好早餐零食，省钱又方便</li>
+                <li>7月日落约 9:30 PM，Lake Louise 晚上观星绝佳</li>
+                <li>总驾驶距离约 495km，路况好不费劲</li>
             </ul>
         </div>
 
