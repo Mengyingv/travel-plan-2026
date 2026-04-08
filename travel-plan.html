@@ -560,7 +560,7 @@
                     <tr><td style="color:#718096; vertical-align:top; padding:4px 8px 4px 0;">3:00–4:30</td><td style="padding:4px 0;">🛶 <strong>Lake Louise 独木舟</strong>（翡翠色湖面上划船，$95 CAD/h）+ 🚶 <strong>湖畔步道</strong>（2km 平路往返 30min）</td></tr>
                     <tr><td style="color:#718096; vertical-align:top; padding:4px 8px 4px 0;">5:00–6:00</td><td style="padding:4px 0;">🏨 回房休息，准备生日晚餐</td></tr>
                     <tr style="background:#fff5f7;"><td colspan="2" style="padding:6px 0; font-weight:600; color:#c53030;">🎂 晚上 · 生日晚餐</td></tr>
-                    <tr><td style="color:#718096; vertical-align:top; padding:4px 8px 4px 0;">6:30–8:30</td><td style="padding:4px 0;">🎂🍽️ <strong>Fairview Dining Room 生日晚餐</strong>（法餐，湖景，需提前预约！通知餐厅 birthday）</td></tr>
+                    <tr><td style="color:#718096; vertical-align:top; padding:4px 8px 4px 0;">6:30–8:30</td><td style="padding:4px 0;">🎂🍽️ <strong>Fairview Dining Room 生日晚餐</strong>（世界之窗景观位，点招牌 <strong>Alberta 牛排</strong>🥩，法餐，需提前预约！通知餐厅 birthday）</td></tr>
                     <tr><td style="color:#718096; vertical-align:top; padding:4px 8px 4px 0;">8:30–9:30</td><td style="padding:4px 0;">🌅 湖畔散步看日落（7月日落 ~9:30 PM）+ 切蛋糕🎂</td></tr>
                     <tr><td style="color:#718096; vertical-align:top; padding:4px 8px 4px 0;">9:30+</td><td style="padding:4px 0;">🌌 观星（Lake Louise 无光污染，天气好可见银河）</td></tr>
                     </table>
@@ -757,144 +757,70 @@
 
         <!-- Hotel Comparison -->
         <div class="budget-section" style="margin-top:40px">
-            <h3>🏨 班夫地区酒店对比</h3>
+        <!-- Hotel Details -->
+        <div class="budget-section" style="margin-top:40px">
+            <h3>🏨 行程酒店详情</h3>
 
-            <!-- Map -->
-            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-            <div id="hotel-map" style="height:380px; border-radius:12px; margin:20px 0; box-shadow:0 2px 12px rgba(0,0,0,0.1);"></div>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    var map = L.map('hotel-map').setView([51.28, -115.87], 10);
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: '© OpenStreetMap'
-                    }).addTo(map);
-
-                    var hotels = [
-                        { name: '🏔️ Chateau Lake Louise', lat: 51.4168, lng: -116.1773, price: '$700–1,000/晚', color: '#3182ce' },
-                        { name: '🏰 Banff Springs', lat: 51.1621, lng: -115.5561, price: '$500–750/晚', color: '#805ad5' },
-                        { name: '🦦 Otter Hotel', lat: 51.1784, lng: -115.5708, price: '$300–500/晚', color: '#dd6b20' },
-                        { name: '🛶 Hotel Canoe', lat: 51.1762, lng: -115.5722, price: '$250–400/晚', color: '#38a169' }
-                    ];
-
-                    hotels.forEach(function(h) {
-                        var icon = L.divIcon({
-                            className: 'custom-marker',
-                            html: '<div style="background:' + h.color + ';color:white;padding:4px 10px;border-radius:8px;font-size:12px;font-weight:600;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,0.3);">' + h.name + '</div>',
-                            iconSize: [120, 30],
-                            iconAnchor: [60, 15]
-                        });
-                        L.marker([h.lat, h.lng], { icon: icon }).addTo(map)
-                            .bindPopup('<strong>' + h.name + '</strong><br>' + h.price);
-                    });
-                });
-            </script>
-
-            <!-- 4 Hotel Cards -->
+            <!-- Moose Hotel -->
             <div class="compare-grid" style="margin-top:20px">
+                <div class="compare-card" style="border-top: 4px solid #38a169;">
+                    <h3>🦌 Moose Hotel and Suites · Thu晚</h3>
+                    <span class="tag tag-cool">班夫镇中心</span>
+                    <span class="tag tag-neutral">4星</span>
+                    <div style="margin-top:15px">
+                        <div class="compare-item"><span class="label">位置</span><span class="value">Banff Ave 中心，步行到一切</span></div>
+                        <div class="compare-item"><span class="label">King 房价</span><span class="value">$300–450 CAD/晚</span></div>
+                        <div class="compare-item"><span class="label">停车</span><span class="value">Self-parking $20 CAD/晚</span></div>
+                        <div class="compare-item"><span class="label">⭐ 屋顶温泉池</span><span class="value">2个屋顶 hot pool + 泳池（免费）👙</span></div>
+                        <div class="compare-item"><span class="label">Spa</span><span class="value">Meadow Spa & Pools</span></div>
+                        <div class="compare-item"><span class="label">健身房</span><span class="value">✅ 24小时</span></div>
+                        <div class="compare-item"><span class="label">餐厅</span><span class="value">Pacini 意大利餐厅</span></div>
+                        <div class="compare-item"><span class="label">免费服务</span><span class="value">WiFi、屋顶温泉池、滑雪储物室</span></div>
+                        <div class="compare-item"><span class="label">厨房</span><span class="value">Suite 房型含厨房</span></div>
+                    </div>
+                </div>
                 <div class="compare-card blue">
-                    <h3>🏔️ Chateau Lake Louise</h3>
-                    <span class="tag tag-neutral">"荒野中的钻石"</span>
-                    <span class="tag tag-cool">1890年建</span>
+                    <h3>🏔️ Fairmont Chateau Lake Louise · Fri晚</h3>
+                    <span class="tag tag-neutral">Gold Room</span>
+                    <span class="tag" style="background:#fff5f7;color:#c53030;">🎂 生日晚餐</span>
                     <div style="margin-top:15px">
-                        <div class="compare-item"><span class="label">位置</span><span class="value">Lake Louise 湖畔，直面冰川</span></div>
-                        <div class="compare-item"><span class="label">7月均价</span><span class="value">$700–1,000/晚</span></div>
-                        <div class="compare-item"><span class="label">湖景房</span><span class="value">$800–1,200/晚</span></div>
-                        <div class="compare-item"><span class="label">景色</span><span class="value">⭐⭐⭐⭐⭐ 绝杀级湖景冰川</span></div>
-                        <div class="compare-item"><span class="label">Spa</span><span class="value">⭐⭐⭐ 基础</span></div>
-                        <div class="compare-item"><span class="label">餐厅</span><span class="value">4家 | 下午茶对着冰川</span></div>
-                        <div class="compare-item"><span class="label">活动</span><span class="value">🛶 独木舟、🥾 徒步、🐴 骑马</span></div>
-                        <div class="compare-item"><span class="label">周边</span><span class="value">⚠️ 偏远，无镇无超市</span></div>
-                        <div class="compare-item"><span class="label">适合</span><span class="value">📸 拍照、浪漫、安静</span></div>
-                    </div>
-                </div>
-                <div class="compare-card purple">
-                    <h3>🏰 Banff Springs</h3>
-                    <span class="tag tag-purple">"落基山城堡"</span>
-                    <span class="tag tag-cool">1888年建</span>
-                    <div style="margin-top:15px">
-                        <div class="compare-item"><span class="label">位置</span><span class="value">班夫镇南，Bow River 旁</span></div>
-                        <div class="compare-item"><span class="label">7月均价</span><span class="value">$500–750/晚</span></div>
-                        <div class="compare-item"><span class="label">豪华房</span><span class="value">$700–1,000/晚</span></div>
-                        <div class="compare-item"><span class="label">景色</span><span class="value">⭐⭐⭐⭐ Bow Valley + 群山</span></div>
-                        <div class="compare-item"><span class="label">Spa</span><span class="value">⭐⭐⭐⭐⭐ Willow Stream 顶级温泉</span></div>
-                        <div class="compare-item"><span class="label">餐厅</span><span class="value">7家+ | Eden 法餐顶级</span></div>
-                        <div class="compare-item"><span class="label">活动</span><span class="value">⛳ 高尔夫、🎳 保龄球、🧗 攀岩</span></div>
-                        <div class="compare-item"><span class="label">周边</span><span class="value">✅ 步行到班夫镇</span></div>
-                        <div class="compare-item"><span class="label">适合</span><span class="value">🧖 泡Spa、逛镇、设施控</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="compare-grid" style="margin-top:20px">
-                <div class="compare-card" style="border-top: 4px solid #dd6b20;">
-                    <h3>🦦 Otter Hotel</h3>
-                    <span class="tag" style="background:#fffaf0;color:#c05621;">精品设计酒店</span>
-                    <span class="tag tag-neutral">2024年开业</span>
-                    <div style="margin-top:15px">
-                        <div class="compare-item"><span class="label">位置</span><span class="value">班夫镇中心 Banff Ave</span></div>
-                        <div class="compare-item"><span class="label">7月均价</span><span class="value">$300–500/晚</span></div>
-                        <div class="compare-item"><span class="label">风格</span><span class="value">⭐⭐⭐⭐⭐ 现代精品设计</span></div>
-                        <div class="compare-item"><span class="label">景色</span><span class="value">⭐⭐⭐ 部分房型山景</span></div>
-                        <div class="compare-item"><span class="label">餐饮</span><span class="value">酒店餐厅 + 门口就是主街餐厅</span></div>
-                        <div class="compare-item"><span class="label">特色</span><span class="value">🎨 设计感强、装修新、拍照好看</span></div>
-                        <div class="compare-item"><span class="label">周边</span><span class="value">✅ 最佳位置，逛吃步行0距离</span></div>
-                        <div class="compare-item"><span class="label">适合</span><span class="value">🏙️ 喜欢潮流设计、便利位置</span></div>
-                    </div>
-                </div>
-                <div class="compare-card cool">
-                    <h3>🛶 Hotel Canoe</h3>
-                    <span class="tag tag-cool">精品山地酒店</span>
-                    <span class="tag tag-neutral">翻新升级</span>
-                    <div style="margin-top:15px">
-                        <div class="compare-item"><span class="label">位置</span><span class="value">班夫镇 Marten St，近 Bow River</span></div>
-                        <div class="compare-item"><span class="label">7月均价</span><span class="value">$250–400/晚</span></div>
-                        <div class="compare-item"><span class="label">风格</span><span class="value">⭐⭐⭐⭐ 山地木屋现代风</span></div>
-                        <div class="compare-item"><span class="label">景色</span><span class="value">⭐⭐⭐⭐ 部分房型可看群山</span></div>
-                        <div class="compare-item"><span class="label">特色</span><span class="value">🛁 屋顶热水池看星空！</span></div>
-                        <div class="compare-item"><span class="label">餐饮</span><span class="value">酒店餐厅 + 步行到主街5min</span></div>
-                        <div class="compare-item"><span class="label">周边</span><span class="value">✅ 镇中心步行距离，靠近河边</span></div>
-                        <div class="compare-item"><span class="label">适合</span><span class="value">💰 性价比之选、屋顶泡汤爱好者</span></div>
+                        <div class="compare-item"><span class="label">位置</span><span class="value">Lake Louise 湖畔，直面 Victoria Glacier</span></div>
+                        <div class="compare-item"><span class="label">Gold King 房价</span><span class="value">$900–1,400 CAD/晚</span></div>
+                        <div class="compare-item"><span class="label">停车</span><span class="value">Self-parking $38 CAD / Valet $52 CAD</span></div>
+                        <div class="compare-item"><span class="label">⭐ Gold Lounge</span><span class="value">专属休息室 + 免费饮品小食 + 管家服务</span></div>
+                        <div class="compare-item"><span class="label">含早</span><span class="value">✅ Gold Room 含 Poppy Brasserie 自助早餐</span></div>
+                        <div class="compare-item"><span class="label">泳池</span><span class="value">室内温水泳池 👙</span></div>
+                        <div class="compare-item"><span class="label">Spa</span><span class="value">Spa by L'Occitane</span></div>
+                        <div class="compare-item"><span class="label">活动</span><span class="value">🛶 独木舟 $95/h、🐴 骑马、🥾 导览徒步、🌌 观星</span></div>
+                        <div class="compare-item"><span class="label">餐厅</span><span class="value">Fairview（世界之窗🥩牛排）、Alpine Social、Walliser Stube（芝士火锅）、Lakeview Lounge（下午茶☕）</span></div>
+                        <div class="compare-item"><span class="label">免费服务</span><span class="value">WiFi、Gold Lounge、早餐、下午茶点心、晚间 canapés</span></div>
+                        <div class="compare-item"><span class="label">夜间</span><span class="value">🌌 无光污染观星、湖畔散步看日落</span></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Price Summary -->
+        <!-- Calgary Hotel Comparison -->
         <div class="budget-section" style="margin-top:25px">
-            <h3>💰 4家酒店价格一览（7月/晚）</h3>
+            <h3>🏨 卡尔加里酒店对比（Sat晚 · King Bed）</h3>
             <table class="budget-table">
-                <thead><tr><th>酒店</th><th>基础房</th><th>升级房</th><th>亮点</th></tr></thead>
+                <thead><tr><th>酒店</th><th>Calgary Marriott Downtown</th><th>Hyatt Regency Calgary</th></tr></thead>
                 <tbody>
-                    <tr><td>🏔️ Chateau Lake Louise</td><td>$550–800</td><td>$800–1,200（湖景）</td><td>湖景无敌</td></tr>
-                    <tr><td>🏰 Banff Springs</td><td>$450–650</td><td>$700–1,000</td><td>Spa + 城堡体验</td></tr>
-                    <tr><td>🦦 Otter Hotel</td><td>$300–500</td><td>—</td><td>设计感 + 最佳位置</td></tr>
-                    <tr><td>🛶 Hotel Canoe</td><td>$250–400</td><td>—</td><td>屋顶热水池 + 性价比</td></tr>
+                    <tr><td><strong>星级</strong></td><td>4星</td><td>4星</td></tr>
+                    <tr><td><strong>位置</strong></td><td>9th Ave SE · 市中心 · 近 Charbar</td><td>Stephen Ave · 市中心商圈核心</td></tr>
+                    <tr><td><strong>King 房价（7月周六）</strong></td><td><strong>$180–280 CAD/晚</strong></td><td><strong>$200–320 CAD/晚</strong></td></tr>
+                    <tr><td><strong>Self Parking</strong></td><td>$35 CAD/晚</td><td>$40 CAD/晚</td></tr>
+                    <tr><td><strong>泳池</strong></td><td>✅ 室内温水泳池</td><td>❌ 无泳池</td></tr>
+                    <tr><td><strong>健身房</strong></td><td>✅ 24小时</td><td>✅ 24小时 StayFit™ Gym</td></tr>
+                    <tr><td><strong>Spa</strong></td><td>❌</td><td>❌</td></tr>
+                    <tr><td><strong>餐厅</strong></td><td>One18 Empire（西餐+酒吧）</td><td>Thomsons Kitchen & Bar + Starbucks</td></tr>
+                    <tr><td><strong>会员积分</strong></td><td>Marriott Bonvoy</td><td>World of Hyatt</td></tr>
+                    <tr><td><strong>免费服务</strong></td><td>WiFi（Bonvoy会员）、行李寄存</td><td>WiFi、Regency Club（高级房含休息室）</td></tr>
+                    <tr><td><strong>到 Yann Patisserie</strong></td><td>🚗 8min</td><td>🚗 6min</td></tr>
+                    <tr><td><strong>到 YYC 机场</strong></td><td>🚗 25min</td><td>🚗 25min</td></tr>
+                    <tr><td><strong>推荐度</strong></td><td>⭐⭐⭐⭐ 有泳池、略便宜</td><td>⭐⭐⭐⭐ 位置更核心、Hyatt 积分</td></tr>
                 </tbody>
             </table>
-        </div>
-
-        <!-- Best of both -->
-        <div class="verdict-box" style="margin-top:25px">
-            <h3>💡 推荐住宿方案</h3>
-            <div class="compare-grid" style="text-align:left; margin-top:15px">
-                <div style="background:white; padding:20px; border-radius:12px;">
-                    <strong>🏆 奢华方案（$1,800–2,700/3晚）</strong>
-                    <ul style="margin-top:8px; padding-left:18px; color:#4a5568">
-                        <li>第1–2晚 🏰 Banff Springs（泡Spa、逛镇）</li>
-                        <li>第3晚 🏔️ Lake Louise 湖景房（清晨日出）</li>
-                    </ul>
-                </div>
-                <div style="background:white; padding:20px; border-radius:12px;">
-                    <strong>💰 性价比方案（$750–1,300/3晚）</strong>
-                    <ul style="margin-top:8px; padding-left:18px; color:#4a5568">
-                        <li>第1–2晚 🛶 Hotel Canoe（屋顶泡汤看星空）</li>
-                        <li>第3晚 🦦 Otter Hotel（镇中心设计酒店）</li>
-                    </ul>
-                </div>
-            </div>
-            <p style="margin-top:15px; color:#4a5568; font-size:0.95em">
-                🔀 <strong>混搭方案：</strong>前2晚住 Hotel Canoe/Otter（省钱），最后1晚 Lake Louise 湖景房犒赏自己 → 约 <strong>$1,300–1,800/3晚</strong>
-            </p>
         </div>
     </div>
 
