@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2026 夏季旅行计划 | 西雅图出发</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -418,76 +416,37 @@
             </div>
         </div>
 
-        <!-- ===== ROUTE MAP ===== -->
-        <div id="route-map" style="height:420px; border-radius:16px; margin:25px 0; box-shadow:0 2px 12px rgba(0,0,0,0.1);"></div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                if (typeof L === 'undefined') return;
-                var rmap = L.map('route-map').setView([51.18, -115.8], 9);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '© OpenStreetMap'
-                }).addTo(rmap);
-
-                var spots = [
-                    { name: '✈️ YYC 机场', lat: 51.1215, lng: -114.0076, color: '#e53e3e', type: 'AS2307 到达6:10PM' },
-                    { name: '🍽️ Charbar', lat: 51.0420, lng: -114.0380, color: '#dd6b20', type: '餐厅 · Sat晚' },
-                    { name: '🍽️ Anju', lat: 51.0375, lng: -114.0720, color: '#dd6b20', type: '餐厅' },
-                    { name: '🍽️ 卡村牛羊馆', lat: 51.0445, lng: -114.0630, color: '#dd6b20', type: '餐厅 · 水爆肚' },
-                    { name: '🍽️ Master Beef Hot Pot', lat: 51.0460, lng: -114.0650, color: '#dd6b20', type: '餐厅 · 沙茶锅' },
-                    { name: '🧁 Yann Patisserie', lat: 51.0390, lng: -114.0700, color: '#d53f8c', type: 'Sun 买蛋糕+打包马卡龙' },
-                    { name: '🧁 Crave Cupcakes', lat: 51.0385, lng: -114.0715, color: '#d53f8c', type: '蛋糕 · 开到9PM · 17th Ave' },
-                    { name: '☕ Phil&Sebastian YYC', lat: 51.0392, lng: -114.0695, color: '#6b46c1', type: '精品咖啡 · 17th Ave' },
-                    { name: '🦌 Moose Hotel', lat: 51.1770, lng: -115.5700, color: '#38a169', type: '住宿 · Thu-Fri' },
-                    { name: '🏔️ Fairmont LL Gold', lat: 51.4168, lng: -116.1773, color: '#3182ce', type: '住宿 · Fri-Sat 生日晚餐' },
-                    { name: '📸 Moraine Lake', lat: 51.3217, lng: -116.1860, color: '#805ad5', type: '梦莲湖 · Sat早' },
-                    { name: '📸 Bow Lake', lat: 51.6680, lng: -116.4590, color: '#805ad5', type: '冰原大道' },
-                    { name: '📸 Peyto Lake 猫爪湖', lat: 51.7250, lng: -116.5090, color: '#805ad5', type: '冰原大道' },
-                    { name: '📸 Emerald Lake 翡翠湖', lat: 51.4430, lng: -116.5340, color: '#805ad5', type: 'Yoho NP' },
-                    { name: '📸 Natural Bridge', lat: 51.3950, lng: -116.4760, color: '#805ad5', type: '天然桥 · 顺路' },
-                    { name: '📸 Johnston Canyon', lat: 51.2455, lng: -115.8380, color: '#a0aec0', type: '未安排（可选）' },
-                    { name: '📸 Vermilion Lakes', lat: 51.1820, lng: -115.6140, color: '#805ad5', type: '景点' },
-                    { name: '📸 Surprise Corner', lat: 51.1650, lng: -115.5510, color: '#805ad5', type: '景点' },
-                    { name: '🚡 Banff Gondola', lat: 51.1490, lng: -115.5590, color: '#e53e3e', type: '缆车 · Fri上午' },
-                    { name: '📸 Grassi Lakes', lat: 51.0810, lng: -115.3960, color: '#805ad5', type: 'Canmore · Sat下午' },
-                    { name: '🎾 最美网球场', lat: 51.0880, lng: -115.3500, color: '#d53f8c', type: '1029 15st Canmore' },
-                    { name: '🦦 BeaverTails', lat: 51.1775, lng: -115.5715, color: '#dd6b20', type: '加拿大经典甘点 · 开刑11PM' },
-                    { name: '☕ Phil&Sebastian', lat: 51.1778, lng: -115.5710, color: '#6b46c1', type: '精品咖啡 · 开到10PM' },
-                    { name: '🦦 BeaverTails', lat: 51.1775, lng: -115.5715, color: '#dd6b20', type: '加拿大经典甘点 · 开刑11PM' },
-                    { name: '☕ Phil&Sebastian', lat: 51.1778, lng: -115.5710, color: '#6b46c1', type: '精品咖啡 · 开到10PM' },
-                    { name: '🏰 Banff Springs', lat: 51.1621, lng: -115.5561, color: '#805ad5', type: '酒店' }
-                ];
-
-                spots.forEach(function(s) {
-                    var icon = L.divIcon({
-                        className: 'custom-marker',
-                        html: '<div style="background:' + s.color + ';color:white;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:600;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,0.3);">' + s.name + '</div>',
-                        iconSize: [140, 28],
-                        iconAnchor: [70, 14]
-                    });
-                    L.marker([s.lat, s.lng], { icon: icon }).addTo(rmap)
-                        .bindPopup('<strong>' + s.name + '</strong><br>' + s.type);
-                });
-
-                // Route: YYC→Banff→LL→Peyto→LL→Emerald→LL→Moraine→LL→Grassi→Canmore→YYC
-                var route = [
-                    [51.1215, -114.0076], // YYC
-                    [51.1770, -115.5700], // Banff (Moose Hotel)
-                    [51.4168, -116.1773], // Lake Louise
-                    [51.6680, -116.4590], // Bow Lake
-                    [51.7250, -116.5090], // Peyto Lake
-                    [51.4168, -116.1773], // back to LL
-                    [51.3217, -116.1860], // Moraine Lake
-                    [51.4168, -116.1773], // back to LL
-                    [51.4430, -116.5340], // Emerald Lake
-                    [51.3950, -116.4760], // Natural Bridge
-                    [51.4168, -116.1773], // back to LL area
-                    [51.0810, -115.3960], // Grassi Lakes
-                    [51.0880, -115.3500], // Canmore tennis
-                    [51.1215, -114.0076]  // YYC
-                ];
-                L.polyline(route, { color: '#3182ce', weight: 3, opacity: 0.7, dashArray: '8,8' }).addTo(rmap);
-            });
-        </script>
+        <!-- ===== ROUTE MAP (Google Maps) ===== -->
+        <div style="margin:25px 0;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+                <div style="background:white; border-radius:16px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,0.1);">
+                    <div style="padding:12px 15px; background:#ebf8ff; font-weight:600; color:#2b6cb0; font-size:0.9em;">📍 Day 1-2: Calgary → Banff → Lake Louise → 冰原大道</div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m76!1m12!1m3!1d640938.7!2d-116.0!3d51.3!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m61!3e0!4m5!1s0x537170039f843fd5%3A0x266d3bb1b4b6516a!2sCalgary%20Airport%20YYC!3m2!1d51.1215!2d-114.0076!4m5!1s0x5370ca45910c4adb%3A0x79f3afae0dff685!2sBanff%2C%20AB!3m2!1d51.1784!2d-115.5708!4m5!1s0x5370e22c1c80a515%3A0xab13e59498a37091!2sLake%20Louise!3m2!1d51.4168!2d-116.1773!4m5!1s0x5370dde83e5b7c1d%3A0x9a8c5a07a3990827!2sBow%20Lake!3m2!1d51.668!2d-116.459!4m5!1s0x5370d963be769623%3A0x72b8aa0c8f802a41!2sPeyto%20Lake!3m2!1d51.725!2d-116.509!4m5!1s0x5370e22c1c80a515%3A0xab13e59498a37091!2sLake%20Louise!3m2!1d51.4168!2d-116.1773!5e0!3m2!1sen!2sca!4v1" 
+                         width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div style="background:white; border-radius:16px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,0.1);">
+                    <div style="padding:12px 15px; background:#faf5ff; font-weight:600; color:#6b46c1; font-size:0.9em;">📍 Day 3: 梦莲湖 → 翡翠湖 → Grassi Lakes → Calgary</div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m76!1m12!1m3!1d640938.7!2d-116.0!3d51.3!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m61!3e0!4m5!1s0x5370e22c1c80a515%3A0xab13e59498a37091!2sLake%20Louise!3m2!1d51.4168!2d-116.1773!4m5!1s0x5370e571bee38f5d%3A0xd392a09d8614e85f!2sMoraine%20Lake!3m2!1d51.3217!2d-116.186!4m5!1s0x5370db7af05bbe7b%3A0xd7bc11c79a10ecff!2sEmerald%20Lake!3m2!1d51.443!2d-116.534!4m5!1s0x5370c858d98f7c3d%3A0x404c3af7a1742147!2sGrassi%20Lakes%20Trail!3m2!1d51.081!2d-115.396!4m5!1s0x537170039f843fd5%3A0x266d3bb1b4b6516a!2sCalgary%20Airport%20YYC!3m2!1d51.1215!2d-114.0076!5e0!3m2!1sen!2sca!4v1" 
+                         width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+            <!-- Quick links to Google Maps -->
+            <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:15px; justify-content:center;">
+                <a href="https://www.google.com/maps/dir/Calgary+Airport+YYC/Banff,+AB/Lake+Louise,+AB/Peyto+Lake/Lake+Louise,+AB" target="_blank" style="background:#3182ce; color:white; padding:6px 14px; border-radius:8px; text-decoration:none; font-size:0.82em; font-weight:600;">🗺️ Day1-2 导航</a>
+                <a href="https://www.google.com/maps/dir/Lake+Louise,+AB/Moraine+Lake/Emerald+Lake,+BC/Natural+Bridge,+Yoho/Grassi+Lakes+Trail,+Canmore/Calgary+Airport+YYC" target="_blank" style="background:#805ad5; color:white; padding:6px 14px; border-radius:8px; text-decoration:none; font-size:0.82em; font-weight:600;">🗺️ Day3 导航</a>
+                <a href="https://www.google.com/maps/place/Banff+Gondola" target="_blank" style="background:#e53e3e; color:white; padding:6px 14px; border-radius:8px; text-decoration:none; font-size:0.82em; font-weight:600;">🚡 硫磺山缆车</a>
+                <a href="https://www.google.com/maps/place/Peyto+Lake" target="_blank" style="background:#38a169; color:white; padding:6px 14px; border-radius:8px; text-decoration:none; font-size:0.82em; font-weight:600;">🐾 猫爪湖</a>
+                <a href="https://www.google.com/maps/place/Moraine+Lake" target="_blank" style="background:#dd6b20; color:white; padding:6px 14px; border-radius:8px; text-decoration:none; font-size:0.82em; font-weight:600;">📸 梦莲湖</a>
+                <a href="https://www.google.com/maps/place/Emerald+Lake" target="_blank" style="background:#2b6cb0; color:white; padding:6px 14px; border-radius:8px; text-decoration:none; font-size:0.82em; font-weight:600;">💎 翡翠湖</a>
+                <a href="https://www.google.com/maps/place/Grassi+Lakes+Trail,+Canmore" target="_blank" style="background:#805ad5; color:white; padding:6px 14px; border-radius:8px; text-decoration:none; font-size:0.82em; font-weight:600;">🥾 Grassi Lakes</a>
+                <a href="https://www.google.com/maps/place/1029+15+St,+Canmore,+AB+T1W+1V3" target="_blank" style="background:#d53f8c; color:white; padding:6px 14px; border-radius:8px; text-decoration:none; font-size:0.82em; font-weight:600;">🎾 最美网球场</a>
+            </div>
+        </div>
+        <style>
+            @media (max-width: 700px) {
+                [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+            }
+        </style>
 
         <div class="timeline">
             <div class="day-card">
